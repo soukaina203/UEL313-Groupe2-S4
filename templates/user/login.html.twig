@@ -5,14 +5,16 @@
 {% block body %}
     <h1>Login</h1>
 
+    {# Debugging: Display the error variable to check its value #}
+
     {% if error %}
-        <div style="color: red;">{{ error }}</div>
+        <div style="color: red; font-weight: bold;">{{ error }}</div>
     {% endif %}
     
     <form action="{{ path('login') }}" method="POST">
         <div>
             <label for="username">Username:</label>
-            <input type="text" id="username" name="username" required>
+            <input type="text" id="username" name="username" value="{{ app.request.get('username') }}" required>
         </div>
         <div>
             <label for="password">Password:</label>

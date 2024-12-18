@@ -19,9 +19,7 @@ class AccountController extends AbstractController
     #[Route('/', name: 'app_account')]
     public function index(): Response
     {
-        return $this->render('account/index.html.twig', [
-            'controller_name' => 'AccountController',
-        ]);
+        return $this->render('user/login.html.twig',['error'=>null]);
     }
 
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
@@ -29,41 +27,40 @@ class AccountController extends AbstractController
         Request $request,
         EntityManagerInterface $entityManager,
         UserPasswordHasherInterface $passwordHasher,
-        SessionInterface $session // Add the session interface
-
+        SessionInterface $session
     ): Response {
-        $error = null; // Initialize error variable
-    
+        $error = null;
+
         if ($request->isMethod('POST')) {
             $username = $request->request->get('username');
             $password = $request->request->get('password');
-    
-            // Validate input
+
             if (!$username || !$password) {
                 $error = 'Username and password are required.';
             } else {
-                // Find the user
-                $user = $entityManager->getRepository(User::class)->
-                findOneBy(['username' => $username]);
-    
-                // Validate credentials
+                $user = $entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
+
                 if (!$user || !$passwordHasher->isPasswordValid($user, $password)) {
                     $error = 'Invalid credentials.';
                 } else {
-                    // Successful login: redirect to admin page
                     $session->set('logged_user', $user);
-
                     return $this->redirectToRoute('admin_index');
-                    
                 }
             }
+
+            // Render the login template again with the error
+            return $this->render('user/login.html.twig', [
+                'error' => $error
+            ]);
         }
-    
-        // Render the login form (with or without error)
+
+        // For GET request
         return $this->render('user/login.html.twig', [
-            'error' => $error, // Pass the error variable to Twig
+            'error' => null
         ]);
     }
+
+
 
     #[Route('/logout', name: 'logout', methods: ['GET'])]
 
