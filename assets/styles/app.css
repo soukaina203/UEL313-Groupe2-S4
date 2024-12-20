@@ -6,7 +6,7 @@ h1 {
 .btn-add {
     background-color: #014751;
     color: white;
-    border: none;
+    border: #014751 1px solid;
 }
 
 .btn-add:hover {
