@@ -3,25 +3,27 @@
 {% block title %}Login{% endblock %}
 
 {% block body %}
-    <h1>Login</h1>
+    <div class="container mt-5">
+        <h1 class="text-center">Login</h1>
 
-    {# Debugging: Display the error variable to check its value #}
-
-    {% if error %}
-        <div style="color: red; font-weight: bold;">{{ error }}</div>
-    {% endif %}
-    
-    <form action="{{ path('login') }}" method="POST">
-        <div>
-            <label for="username">Username:</label>
-            <input type="text" id="username" name="username" value="{{ app.request.get('username') }}" required>
-        </div>
-        <div>
-            <label for="password">Password:</label>
-            <input type="password" id="password" name="password" required>
-        </div>
-        <div>
-            <button type="submit">Login</button>
-        </div>
-    </form>
+        {% if error %}
+            <div class="alert alert-danger" role="alert">
+                {{ error }}
+            </div>
+        {% endif %}
+        
+        <form action="{{ path('login') }}" method="POST" class="mt-4 w-75 ms-auto me-auto">
+            <div class="mb-3 w-50 ms-auto me-auto">
+                <label for="username" class="form-label">Username:</label>
+                <input type="text" id="username" name="username" class="form-control" value="{{ app.request.get('username') }}" required>
+            </div>
+            <div class="mb-3 w-50 ms-auto me-auto">
+                <label for="password" class="form-label">Password:</label>
+                <input type="password" id="password" name="password" class="form-control" required>
+            </div>
+            <div class="d-grid w-25 me-auto ms-auto">
+                <button type="submit" class="btn btn-add">Login</button>
+            </div>
+        </form>
+    </div>
 {% endblock %}

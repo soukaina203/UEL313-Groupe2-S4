@@ -1,3 +1,44 @@
-body {
-    background-color: skyblue;
+h1 {
+    color: #014751;
+    font-weight: bold;
+}
+
+.btn-add {
+    background-color: #014751;
+    color: white;
+    border: none;
+}
+
+.btn-add:hover {
+    color: #014751;
+    border: #014751 1px solid;
+    background-color: white;
+}
+
+
+.btn-add:active {
+    color: #014751;
+    border: #014751 1px solid;
+    background-color: white;
+}
+
+.link {
+    color: #014751;
+}
+
+#user {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#user input {
+    margin-left: 1rem;
+    margin-top: .5rem;
+    border-radius: .5rem;
+    border: #014751 solid 1px;
+}
+
+.logo {
+    width: 10rem;
 }
