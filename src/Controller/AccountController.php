@@ -23,15 +23,17 @@ class AccountController extends AbstractController
     }
 
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
+    //
     public function login(
         Request $request,
         EntityManagerInterface $entityManager,
-        UserPasswordHasherInterface $passwordHasher,
+        UserPasswordHasherInterface $passwordHasher, 
         SessionInterface $session
     ): Response {
         $error = null;
 
         if ($request->isMethod('POST')) {
+
             $username = $request->request->get('username');
             $password = $request->request->get('password');
 
@@ -52,12 +54,13 @@ class AccountController extends AbstractController
             return $this->render('user/login.html.twig', [
                 'error' => $error
             ]);
-        }
 
-        // For GET request
-        return $this->render('user/login.html.twig', [
-            'error' => null
-        ]);
+        }
+            return $this->render('user/login.html.twig', [
+                'error' => $error
+            ]);
+
+   
     }
 
 
