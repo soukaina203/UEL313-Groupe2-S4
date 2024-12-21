@@ -16,11 +16,11 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class AccountController extends AbstractController
 {
-    #[Route('/', name: 'app_account')]
-    public function index(): Response
-    {
-        return $this->render('user/login.html.twig',['error'=>null]);
-    }
+    // #[Route('/', name: 'app_account')]
+    // public function index(): Response
+    // {
+    //     return $this->render('user/login.html.twig',['error'=>null]);
+    // }
 
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     //
@@ -40,7 +40,8 @@ class AccountController extends AbstractController
             if (!$username || !$password) {
                 $error = 'Username and password are required.';
             } else {
-                $user = $entityManager->getRepository(User::class)->findOneBy(['username' => $username]);
+                $user = $entityManager->getRepository(User::class)
+                ->findOneBy(['username' => $username]);
 
                 if (!$user || !$passwordHasher->isPasswordValid($user, $password)) {
                     $error = 'Invalid credentials.';
