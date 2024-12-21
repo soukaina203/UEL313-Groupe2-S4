@@ -68,10 +68,12 @@ class AccountController extends AbstractController
 
     #[Route('/logout', name: 'logout', methods: ['GET'])]
 
-    public function logout(TokenStorageInterface $tokenStorage)
+        
+    public function logout(TokenStorageInterface $tokenStorage,SessionInterface $session)
     {
         // Manually clear the security token
         $tokenStorage->setToken(null);  // Invalidate the authentication token
+        $session->invalidate();
 
         // You can redirect to the login page or any other page after logout
         return new RedirectResponse('/login');
