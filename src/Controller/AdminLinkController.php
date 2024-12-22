@@ -10,21 +10,20 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Attribute\Route;
 
-class AdminController extends AbstractController
+class AdminLinkController extends AbstractController
 {
 
-    #[Route('/admin', name: 'admin_index')]
-    public function index(SessionInterface $session,UserRepository $userRepository): Response
+    #[Route('/admin/link', name: 'adminLink_index')]
+    public function indexLink(SessionInterface $session,LinkRepository $linkRepository): Response
     {
         $connectedUser = $session->get('logged_user');
-        $users =$userRepository->findAll();
+        $links =$linkRepository->findAll();
 
-        return $this->render('admin/index.html.twig', [
+        return $this->render('admin/indexLink.html.twig', [
             'user' => $connectedUser,
-            'users'=>$users
+            'links' => $links
         ]);
     }
-
     
     
 }
