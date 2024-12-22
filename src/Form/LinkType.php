@@ -17,8 +17,9 @@ class LinkType extends AbstractType
             ->add('url')
             ->add('description')
             ->add('keyword', TextType::class, [
-                'mapped' => false, 
+                'mapped' => true, 
                 'required' => true,
+                'data' => $options['data']->getKeyword() ? $options['data']->getKeyword()->getName() : '',
             ]);
     }
 
