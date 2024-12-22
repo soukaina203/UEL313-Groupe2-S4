@@ -39,6 +39,24 @@ h1 {
     border: #014751 solid 1px;
 }
 
+#link {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+#link div {
+    display: flex;
+    align-items: baseline;
+    margin-top: 1rem;
+}
+
+#link input {
+    margin-left: 1rem;
+    border-radius: .5rem;
+    border: #014751 solid 1px;
+}
+
 .logo {
     width: 10rem;
 }
