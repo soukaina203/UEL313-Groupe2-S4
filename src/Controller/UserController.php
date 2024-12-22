@@ -66,29 +66,41 @@ final class UserController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_user_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, User $user, EntityManagerInterface $entityManager,    UserPasswordHasherInterface $passwordHasher): Response
+    public function edit(Request $request, User $user, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher): Response
     {
         $form = $this->createForm(UserType::class, $user);
-
         $form->handleRequest($request);
-           
+    
+        // Retrieve the original hashed password from the database
+        $originalHashedPassword = $user->getPassword();
+    
         if ($form->isSubmitted() && $form->isValid()) {
-            // Hash the password before persisting
-            $hashedPassword = $passwordHasher->hashPassword($user, $user->getPassword());
-            $user->setPassword($hashedPassword);
+            // Retrieve the submitted password
+            $submittedPassword = $form->get('password')->getData();
+    
+            // Check if the submitted password is different from the one in the database
+            if ($submittedPassword && !password_verify($submittedPassword, $originalHashedPassword)) {
+                // Hash the new password if it's different
+                $hashedPassword = $passwordHasher->hashPassword($user, $submittedPassword);
+                $user->setPassword($hashedPassword);
+            } else {
+                // Keep the original password if it's the same
+                $user->setPassword($originalHashedPassword);
+            }
     
             $entityManager->persist($user);
             $entityManager->flush();
-
+    
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
-
+    
         return $this->render('user/edit.html.twig', [
             'user' => $user,
             'form' => $form,
         ]);
     }
-
+    
+    
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
     public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
     {
