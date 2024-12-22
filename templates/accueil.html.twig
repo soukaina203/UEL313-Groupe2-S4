@@ -1,0 +1,8 @@
+{% extends 'base.html.twig' %}
+{% block title %}Accueil{% endblock %}
+{% block body %}
+    <h1 class="mt-4 text-center">Accueil</h1>
+    <p class="text-center">Bienvenue sur la page d'accueil de Watson 2.0.</p>
+    <p class="text-center">Ce projet est une version de Watson, un gestionnaire de liens, réalisé avec le framework Symfony.</p>
+    <a href="{{ path('login') }}" style="width:fit-content;" class="btn ms-auto d-flex me-auto btn-add">Se connecter</a>
+{% endblock %}
