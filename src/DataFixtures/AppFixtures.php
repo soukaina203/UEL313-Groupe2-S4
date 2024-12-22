@@ -12,20 +12,20 @@ class AppFixtures extends Fixture
     {
          $user = new User();
          $user->setUsername('Soukaina');
-         $user->setPassword('Soukaina25');
-         $user->setRole('ADMIN');
+         $user->setPassword('Soukaina');
+         $user->setRole('admin');
          $manager->persist($user);
 
          $user = new User();
          $user->setUsername('Hudayfa');
-         $user->setPassword('any78/*');
-         $user->setRole('ADMIN');
+         $user->setPassword('Hudayfa');
+         $user->setRole('admin');
          $manager->persist($user);
 
          $user = new User();
          $user->setUsername('Clement');
-         $user->setPassword('any78/*');
-         $user->setRole('ADMIN');
+         $user->setPassword('Clement');
+         $user->setRole('admin');
          $manager->persist($user);
 
         $manager->flush();
