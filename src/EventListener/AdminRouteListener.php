@@ -38,7 +38,7 @@ class AdminRouteListener
 
             // Retrieve logged_user and check role
             $loggedUser = $session->get('logged_user');
-            if (!is_object($loggedUser) || !method_exists($loggedUser, 'getRole') || $loggedUser->getRole() !== 'admin') {
+            if (!is_object($loggedUser) || !method_exists($loggedUser, 'getRole') || $loggedUser->getRole() !== 'ADMIN') {
                 // Redirect to login page if not admin
                 $response = new RedirectResponse($this->router->generate('login'));
                 $event->setController(function () use ($response) {
