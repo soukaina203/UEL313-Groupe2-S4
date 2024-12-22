@@ -16,11 +16,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 
 class AccountController extends AbstractController
 {
-    // #[Route('/', name: 'app_account')]
-    // public function index(): Response
-    // {
-    //     return $this->render('user/login.html.twig',['error'=>null]);
-    // }
+ 
 
     #[Route('/login', name: 'login', methods: ['GET', 'POST'])]
     //
@@ -51,7 +47,6 @@ class AccountController extends AbstractController
                 }
             }
 
-            // Render the login template again with the error
             return $this->render('user/login.html.twig', [
                 'error' => $error
             ]);
@@ -71,11 +66,9 @@ class AccountController extends AbstractController
         
     public function logout(TokenStorageInterface $tokenStorage,SessionInterface $session)
     {
-        // Manually clear the security token
-        $tokenStorage->setToken(null);  // Invalidate the authentication token
+        $tokenStorage->setToken(null);  
         $session->invalidate();
 
-        // You can redirect to the login page or any other page after logout
         return new RedirectResponse('/login');
     }
 }
